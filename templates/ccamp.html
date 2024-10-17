@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <title>Completed Campaigns</title>
+</head>
+<body>
+  <a href="{{url_for("mycampaigns",id=id)}}">Go Back</a>
+  <br>
+  {% if date==empty %}
+  <h1>No Completed Campaigns:</h1>
+  {% elif date != empty%}
+  <h1>Completed Campaigns:</h1>
+  <br>
+  {% for q in query %}
+  {% if q.end_date in date %}
+  <div class="container">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Name: {{q.name}}  </h5>
+        <h6 class="card-title">Category: {{q.category}}&#160;&#160;Start_date: {{q.start_date}}&#160;&#160;End_date: {{q.end_date}}&#160;&#160;Budget: {{q.budget}}&#160;&#160;visiblity: {{q.visib}}</h6>
+        <h6 class="card-title">Description:</h6>
+        <p>{{q.description}}</p>
+        <h6 class="card-title">Goals:</h6>
+        <p>{{q.goals}}</p> 
+        <a name="" id="" class="btn btn-primary" href="{{url_for("updatecampaign",sid=id,cid=q.C_id)}}" role="button">Update Campaign </a>
+        <a name="" id="" class="btn btn-danger" href="{{url_for("deletecampaign",sid=id,cid=q.C_id)}}" role="button">Delete Campaign</a>
+      </div>
+    </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+</body>
+</body>
+</html>

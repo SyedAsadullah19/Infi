@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <title>All Campaigns
+  </title>
+</head>
+<body>
+  <center><h1>Sponsor Dashboard</h1></center>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{ url_for('sdash',id=id) }}"><button class="btn btn-danger" type="button">{{query1.username}}</button></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="{{ url_for('mycampaigns',id=id) }}"><button class="btn btn-primary" type="button">All Campaigns</button></a>
+        <a class="nav-item nav-link" href="{{ url_for('showinfluencer',id=id) }}"><button class="btn btn-primary" type="button">Influencer</button></a>
+        <a class="nav-item nav-link" href="{{ url_for('showinfluencerrequest',id=id) }}"><button class="btn btn-primary" type="button">Request Sent</button></a>
+        <a class="nav-item nav-link" href="{{ url_for('showinfluencerrecived',id=id) }}"><button class="btn btn-primary" type="button">Request Recived</button></a>
+        <a class="nav-item nav-link" href="{{ url_for('showinfluencerresponse',id=id) }}"><button class="btn btn-success" type="button">Responses</button></a>
+        <a class="nav-item nav-link" href="{{ url_for('searchinfluencer',id=id) }}"><button class="btn btn-success" type="button">Search</button></a>
+        <a class="nav-item nav-link" href="{{ url_for('logout',id=id) }}"><button class="btn btn-success" type="button">Logout</button></a>
+      </div>
+    </div>
+  </nav>
+  <br><div class="container">
+  <ul class="nav nav-pills">
+        <nav id="navbar-example2" class="navbar navbar-light bg-light px-3">
+            <a href="{{url_for("create_campaign",id=id)}}"><button type="button" class="btn btn-primary">Create Campaign</button></a>
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for("upcoming",id=id)}}">Upcoming</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for("ongoing",id=id)}}">Ongoing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for("completed",id=id)}}">Completed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for("flaggedcampaigns",id=id)}}">Flagged</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <br>
+    <center><h1>All Campaigns</h1></center>
+    {% for q in query|reverse %}
+    <div class="container border border-dark">
+    <br>
+    <div class="card-body">
+      <h5 class="card-title">Name: {{q.name}}  </h5>
+      <h6 class="card-title">Category: {{q.category}}&#160;&#160;Start_date: {{q.start_date}}&#160;&#160;End_date: {{q.end_date}}&#160;&#160;Budget: {{q.budget}}&#160;&#160;visiblity: {{q.visib}}</h6>
+      <h6 class="card-title">Description:</h6>
+      <p>{{q.description}}</p>
+      <h6 class="card-title">Goals:</h6>
+      <p>{{q.goals}}</p> 
+      <a name="" id="" class="btn btn-primary" href="{{url_for("updatecampaign",sid=id,cid=q.C_id)}}" role="button">Update Campaign </a>
+      <a name="" id="" class="btn btn-danger" href="{{url_for("deletecampaign",sid=id,cid=q.C_id)}}" role="button">Delete Campaign</a>
+    </div>
+    <br>
+</div>
+    <br>
+    {% endfor %}
+</body>
+</html>

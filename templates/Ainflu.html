@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Admin Dashboard</title>
+</head>
+<body>   
+    <center><h1>Admin Dashboard.</h1></center>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('adash', id = id) }}"><button class="btn btn-danger" type="button">{{query1.username}}</button></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{{ url_for('adminstats', id = id) }}"><button class="btn btn-primary" type="button">Statistics</button></a>
+            <a class="nav-item nav-link active" href="{{ url_for('admininfluencer', id = id) }}"><button class="btn btn-primary" type="button">Influencer</button></a>
+            <a class="nav-item nav-link" href="{{ url_for('admincampaign', id = id) }}"><button class="btn btn-primary" type="button">Campaigns</button></a>
+            <a class="nav-item nav-link" href="{{ url_for('adminsponsor', id = id) }}"><button class="btn btn-primary" type="button">Sponsors</button></a>
+            <a class="nav-item nav-link" href="{{ url_for('adminflagged', id = id) }}"><button class="btn btn-success" type="button">Flagged ones</button></a>
+            <a class="nav-item nav-link" href="{{ url_for('logout') }}"><button class="btn btn-success" type="button">Logout</button></a>
+          </div>
+        </div>
+      </nav>
+      {% if names==empty %}
+      <h1>No Influencers:</h1>
+      {% elif names != empty%}
+      <h1>All Influencers:</h1>
+      <br>
+      {% for q in query %}
+      {% if q.username in names %}
+      <div class="container">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">Name: {{q.username}}  </h5>
+            <h6 class="card-title">Email: {{q.email}}
+            <br>
+            Category: {{q.category}}
+            <br>
+            Niche: {{q.niche}}
+            <br>
+            <br>
+            <a name="" id="" class="btn btn-primary" href=" {{ url_for('flaggedinfluencers', id=id, iid = q.I_id) }} " role="button">Flag </a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+</body>
+</html>
